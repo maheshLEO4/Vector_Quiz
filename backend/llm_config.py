@@ -7,7 +7,7 @@ from dataclasses import dataclass, field
 
 try:
     from dotenv import load_dotenv
-    load_dotenv()
+    load_dotenv(override=True)
 except ImportError:
     pass
 
@@ -25,6 +25,9 @@ class Model:
 
 
 _MODELS: List[Model] = [
+    # Groq (Default)
+    Model("llama-3.1-8b-instant",   "Llama 3.1 8B Instant",    "Groq · fastest",              "groq"),
+
     # Gemini
     Model("gemini-2.0-flash",       "Gemini 2.0 Flash",       "Fast & balanced",            "gemini"),
     Model("gemini-2.5-flash",       "Gemini 2.5 Flash",       "Smart & efficient",          "gemini"),
@@ -34,9 +37,8 @@ _MODELS: List[Model] = [
     Model("gemini-3.1-flash",       "Gemini 3.1 Flash",       "Fast Gemini 3 model",         "gemini"),
     Model("gemini-3.1-pro",         "Gemini 3.1 Pro",         "Advanced reasoning model",    "gemini"),
 
-    # Groq
+    # Other Groq
     Model("llama-3.3-70b-versatile","Llama 3.3 70B",          "Groq · powerful",             "groq"),
-    Model("llama-3.1-8b-instant",   "Llama 3.1 8B Instant",    "Groq · fastest",              "groq"),
     Model("mixtral-8x7b-32768",     "Mixtral 8×7B",            "Groq · strong reasoning",     "groq"),
     Model("gemma2-9b-it",           "Gemma 2 9B",              "Groq · open model",            "groq"),
 ]
@@ -48,7 +50,7 @@ MODEL_MAP: Dict[str, Model] = {m.id: m for m in _MODELS}
 def _build_prompt(topic: str, n: int, difficulty: str, choices: int) -> str:
     letters = "ABCDE"[:choices]
     options_block = "\n".join(f'      "{l}": "..."' for l in letters)
-    return f"""Generate exactly {n} multiple-choice questions about: "{topic}"
+    return f"""Generate exactly {n} multiple-choice questions about: \"{topic}\"
 
 Rules:
 - Difficulty: {difficulty}
@@ -61,12 +63,12 @@ Rules:
 Return ONLY a valid JSON array — no markdown, no commentary:
 [
   {{
-    "question": "...",
-    "options": {{
+    \"question\": \"...\",
+    \"options\": {{
 {options_block}
     }},
-    "correct_answer": "{letters[0]}",
-    "explanation": "..."
+    \"correct_answer\": \"{letters[0]}\",
+    \"explanation\": \"...\"
   }}
 ]"""
 
