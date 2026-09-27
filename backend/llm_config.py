@@ -23,25 +23,20 @@ class Model:
     max_tokens: int = 4096
     temperature: float = 0.7
 
-
 _MODELS: List[Model] = [
     # Groq (Default)
-    Model("llama-3.1-8b-instant",   "Llama 3.1 8B Instant",    "Groq · fastest",              "groq"),
+    Model("openai/gpt-oss-20b",  "GPT-OSS 20B",  "Groq · fast & efficient",      "groq"),
+    Model("openai/gpt-oss-120b", "GPT-OSS 120B", "Groq · powerful reasoning",    "groq"),
+    Model("qwen/qwen3-32b",      "Qwen 3 32B",   "Groq · reasoning",             "groq"),
 
     # Gemini
-    Model("gemini-2.0-flash",       "Gemini 2.0 Flash",       "Fast & balanced",            "gemini"),
-    Model("gemini-2.5-flash",       "Gemini 2.5 Flash",       "Smart & efficient",          "gemini"),
-    Model("gemini-2.0-flash-lite",  "Gemini 2.0 Flash Lite",  "Ultra-fast, lightweight",    "gemini"),
-
-    # Gemini 3.1
-    Model("gemini-3.1-flash",       "Gemini 3.1 Flash",       "Fast Gemini 3 model",         "gemini"),
-    Model("gemini-3.1-pro",         "Gemini 3.1 Pro",         "Advanced reasoning model",    "gemini"),
-
-    # Other Groq
-    Model("llama-3.3-70b-versatile","Llama 3.3 70B",          "Groq · powerful",             "groq"),
-    Model("mixtral-8x7b-32768",     "Mixtral 8×7B",            "Groq · strong reasoning",     "groq"),
-    Model("gemma2-9b-it",           "Gemma 2 9B",              "Groq · open model",            "groq"),
+    Model("gemini-2.5-flash",       "Gemini 2.5 Flash",       "Fast & balanced",      "gemini"),
+    Model("gemini-2.5-flash-lite",  "Gemini 2.5 Flash-Lite",  "Fast & lightweight",   "gemini"),
+    Model("gemini-2.5-pro",         "Gemini 2.5 Pro",         "Advanced reasoning",   "gemini"),
+    Model("gemini-3-flash-preview", "Gemini 3 Flash",          "Fast & capable",       "gemini"),
+    Model("gemini-3-pro-preview",   "Gemini 3 Pro",            "Advanced reasoning",  "gemini"),
 ]
+
 MODEL_MAP: Dict[str, Model] = {m.id: m for m in _MODELS}
 
 
